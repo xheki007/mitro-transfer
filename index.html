@@ -1,0 +1,602 @@
+<!doctype html>
+<html lang="sq">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mitro Transfer - Taxi</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+
+  <style>
+    html { scroll-behavior: smooth; }
+    body { overflow-x:hidden; }
+    .container-max { max-width: 1180px; }
+    .btn-yellow { background:#f6c60d; color:#111; }
+    .btn-yellow:hover { filter: brightness(0.95); }
+    .badge { background:#111; color:#fff; }
+    .shadow-soft { box-shadow: 0 10px 30px rgba(0,0,0,.10); }
+    .input { border:1px solid rgba(0,0,0,.14); }
+    .section-title { letter-spacing:.12em; text-transform:uppercase; }
+    .nav-btn{
+      width:44px;height:44px;border-radius:999px;display:flex;align-items:center;justify-content:center;
+      background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);color:#fff;cursor:pointer;user-select:none;
+    }
+    .nav-btn:hover{ background:rgba(255,255,255,.18); }
+    .pill{
+      display:inline-flex; align-items:center; gap:.5rem;
+      padding:.35rem .65rem; border-radius:999px;
+      background:rgba(255,255,255,.10); border:1px solid rgba(255,255,255,.14);
+      font-weight:700; font-size:.85rem;
+    }
+    .chip{
+      display:inline-flex; align-items:center; gap:.5rem;
+      padding:.35rem .65rem; border-radius:999px;
+      background:#fff; border:1px solid rgba(0,0,0,.10);
+      font-weight:800; font-size:.85rem;
+    }
+    /* clickable cards */
+    .price-card{
+      cursor:pointer;
+      transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+      user-select:none;
+    }
+    .price-card:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 14px 38px rgba(0,0,0,.10);
+      border-color: rgba(0,0,0,.18);
+    }
+    .price-card:active{ transform: translateY(0px); }
+  </style>
+</head>
+
+<body class="text-zinc-900">
+  <!-- Top bar -->
+  <div class="bg-zinc-900 text-white text-sm">
+    <div class="mx-auto container-max px-4 py-2 flex items-center justify-between">
+      <div class="flex flex-wrap gap-x-6 gap-y-1">
+        <a class="hover:underline" href="tel:+38349475027">+383 49 475 027</a>
+        <a class="hover:underline" href="https://wa.me/38349475027" target="_blank" rel="noreferrer">WhatsApp</a>
+      </div>
+      <div class="opacity-80" data-i18n="top.note">24/7 • Kosovë • Aeroport</div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b">
+    <div class="mx-auto container-max px-4 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full badge flex items-center justify-center font-bold">MT</div>
+        <div class="leading-tight">
+          <div class="font-extrabold">Mitro Transfer</div>
+          <div class="text-xs text-zinc-500 -mt-0.5" data-i18n="brand.sub">Taxi Service</div>
+        </div>
+      </div>
+
+      <nav class="hidden md:flex items-center gap-8 text-sm font-semibold">
+        <a class="hover:text-zinc-600" href="#home" data-i18n="nav.home">Home</a>
+        <a class="hover:text-zinc-600" href="#services" data-i18n="nav.services">Shërbimet</a>
+        <a class="hover:text-zinc-600" href="#pricing" data-i18n="nav.pricing">Çmimet</a>
+        <a class="hover:text-zinc-600" href="#reviews" data-i18n="nav.reviews">Vlerësime</a>
+        <a class="hover:text-zinc-600" href="#contact" data-i18n="nav.contact">Kontakt</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <select id="langSelect" class="text-sm font-semibold border rounded-lg px-3 py-2 bg-white">
+          <option value="sq">Shqip</option>
+          <option value="en">English</option>
+          <option value="de">Deutsch</option>
+        </select>
+
+        <a href="#book" class="px-4 py-2 rounded-lg btn-yellow font-bold shadow-soft" data-i18n="nav.book">Rezervo</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero slider -->
+  <section id="home" class="relative overflow-x-hidden">
+    <div class="swiper h-[640px]">
+      <div class="swiper-wrapper">
+
+        <!-- Slide 1 -->
+        <div class="swiper-slide">
+          <div class="h-full bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-700 text-white">
+            <div class="mx-auto container-max px-4 h-full w-full grid lg:grid-cols-2 items-center gap-10 min-w-0">
+              <div class="pt-10 min-w-0">
+                <div class="section-title text-xs text-yellow-300/90" data-i18n="hero1.kicker">Udhëtim i rehatshëm</div>
+                <h1 class="mt-3 text-4xl md:text-5xl font-black leading-tight" data-i18n="hero1.title">Rezervo Taxi Online</h1>
+                <p class="mt-4 text-white/80 max-w-xl" data-i18n="hero1.desc">
+                  Shërbim i shpejtë, i sigurt dhe korrekt. Aeroport, qytet, udhëtime të gjata.
+                </p>
+
+                <div class="mt-5 flex flex-wrap gap-2">
+                  <span class="pill">24/7</span>
+                  <span class="pill" data-i18n="hero.p1">Aeroport</span>
+                  <span class="pill" data-i18n="hero.p2">Qytetet</span>
+                  <span class="pill" data-i18n="hero.p3">Çmime fikse</span>
+                </div>
+
+                <div class="mt-7 flex flex-wrap gap-3">
+                  <a href="#book" class="px-5 py-3 rounded-xl btn-yellow font-extrabold" data-i18n="hero.cta1">Rezervo tani</a>
+                  <a href="tel:+38349475027" class="px-5 py-3 rounded-xl bg-white/10 border border-white/20 font-bold" data-i18n="hero.cta2">Thirr</a>
+                </div>
+              </div>
+
+              <!-- Booking card -->
+              <div id="book" class="bg-white text-zinc-900 rounded-2xl p-6 md:p-8 shadow-soft w-full max-w-xl lg:justify-self-end min-w-0">
+                <div class="text-xs section-title text-zinc-500" data-i18n="book.kicker">Rezervim i shpejtë</div>
+                <div class="text-2xl font-black mt-2" data-i18n="book.title">Dërgo rezervimin në WhatsApp</div>
+
+                <div class="mt-4 flex flex-wrap gap-2">
+                  <span class="chip" data-i18n="book.ch1">Destinacione fikse</span>
+                  <span class="chip" data-i18n="book.ch2">Çmim automatik</span>
+                  <span class="chip" data-i18n="book.ch3">1 klik dërgimi</span>
+                </div>
+
+                <form class="mt-5 grid gap-3" onsubmit="return sendBooking(event)">
+                  <div class="grid md:grid-cols-2 gap-3">
+                    <input class="input rounded-xl px-4 py-3 w-full" required name="fullname"
+                      data-i18n-ph="ph.fullname" placeholder="Emri & Mbiemri" autocomplete="name" />
+                    <input class="input rounded-xl px-4 py-3 w-full" required name="phone"
+                      data-i18n-ph="ph.phone" placeholder="Telefoni" autocomplete="tel" />
+                  </div>
+
+                  <div class="grid gap-2">
+                    <label for="destinationSelect" class="text-sm font-bold text-zinc-700" data-i18n="book.destLabel">
+                      Zgjedh destinacionin
+                    </label>
+                    <select class="input rounded-xl px-4 py-3 w-full" required name="destination" id="destinationSelect">
+                      <option value="">Zgjedh destinacionin</option>
+                    </select>
+                  </div>
+
+                  <div class="flex items-center justify-between rounded-xl border bg-zinc-50 px-4 py-3">
+                    <div class="text-sm text-zinc-600" data-i18n="book.priceLabel">Çmimi</div>
+                    <div class="text-xl font-black" id="pricePreview">€—</div>
+                  </div>
+
+                  <div class="grid md:grid-cols-2 gap-3">
+                    <input class="input rounded-xl px-4 py-3 w-full" required name="date" type="date" />
+                    <input class="input rounded-xl px-4 py-3 w-full" required name="time" type="time" />
+                  </div>
+
+                  <div class="grid md:grid-cols-2 gap-3">
+                    <select class="input rounded-xl px-4 py-3 w-full" name="class">
+                      <option value="Standard" selected data-i18n="class.standard">Standard</option>
+                      <option value="Economy" data-i18n="class.economy">Economy</option>
+                      <option value="Business" data-i18n="class.business">Business</option>
+                    </select>
+
+                    <select class="input rounded-xl px-4 py-3 w-full" name="car">
+                      <option selected>VW Passat B8 Blue Caravan</option>
+                    </select>
+                  </div>
+
+                  <label class="flex items-start gap-2 text-sm text-zinc-600">
+                    <input required type="checkbox" class="mt-1" />
+                    <span data-i18n="book.consent">Pajtohem që të dhënat të përdoren vetëm për rezervim.</span>
+                  </label>
+
+                  <button class="mt-1 px-5 py-3 rounded-xl btn-yellow font-extrabold w-full" data-i18n="book.send">
+                    Dërgo në WhatsApp
+                  </button>
+                  <div class="text-xs text-zinc-500" data-i18n="book.tip">
+                    Rezervimi hapet gati në WhatsApp — ti e dërgon me 1 klik.
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <!-- arrows only -->
+            <div class="absolute z-20 left-4 right-4 top-1/2 -translate-y-1/2 flex items-center justify-between pointer-events-none">
+              <button class="nav-btn pointer-events-auto swiper-button-prev" aria-label="Para">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                  <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+              <button class="nav-btn pointer-events-auto swiper-button-next" aria-label="Tjetër">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                  <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
+
+            <div class="swiper-pagination"></div>
+          </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="swiper-slide">
+          <div class="h-full bg-gradient-to-br from-zinc-950 via-zinc-900 to-yellow-500/30 text-white">
+            <div class="mx-auto container-max px-4 h-full w-full grid lg:grid-cols-2 items-center gap-10 min-w-0">
+              <div class="pt-10 min-w-0">
+                <div class="section-title text-xs text-yellow-300/90" data-i18n="hero2.kicker">Siguri & korrektësi</div>
+                <h2 class="mt-3 text-4xl md:text-5xl font-black leading-tight" data-i18n="hero2.title">Taxi Service 24/7</h2>
+                <p class="mt-4 text-white/80 max-w-xl" data-i18n="hero2.desc">Shofer i licencuar, veturë e pastër, çmim i qartë.</p>
+                <div class="mt-7 flex flex-wrap gap-3">
+                  <a href="#services" class="px-5 py-3 rounded-xl btn-yellow font-extrabold" data-i18n="hero2.cta1">Shiko shërbimet</a>
+                  <a href="#contact" class="px-5 py-3 rounded-xl bg-white/10 border border-white/20 font-bold" data-i18n="hero2.cta2">Kontakt</a>
+                </div>
+              </div>
+
+              <div class="hidden lg:block min-w-0">
+                <div class="bg-white/10 border border-white/15 rounded-3xl p-8">
+                  <div class="text-sm font-bold" data-i18n="hero2.infoTitle">Info</div>
+                  <ul class="mt-4 space-y-2 text-white/80">
+                    <li data-i18n="hero2.b1">• 24/7 disponueshmëri</li>
+                    <li data-i18n="hero2.b2">• Aeroport transfer</li>
+                    <li data-i18n="hero2.b3">• Udhëtime në gjithë Kosovën</li>
+                    <li data-i18n="hero2.b4">• Pagesë cash / marrëveshje</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="absolute z-20 left-4 right-4 top-1/2 -translate-y-1/2 flex items-center justify-between pointer-events-none">
+              <button class="nav-btn pointer-events-auto swiper-button-prev" aria-label="Para">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                  <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+              <button class="nav-btn pointer-events-auto swiper-button-next" aria-label="Tjetër">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                  <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
+
+            <div class="swiper-pagination"></div>
+          </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="swiper-slide">
+          <div class="h-full bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-800 text-white">
+            <div class="mx-auto container-max px-4 h-full w-full grid lg:grid-cols-2 items-center gap-10 min-w-0">
+              <div class="pt-10 min-w-0">
+                <div class="section-title text-xs text-yellow-300/90" data-i18n="hero3.kicker">Shpejt • thjeshtë • korrekt</div>
+                <h2 class="mt-3 text-4xl md:text-5xl font-black leading-tight" data-i18n="hero3.title">Çmime fikse për destinacione</h2>
+                <p class="mt-4 text-white/80 max-w-xl" data-i18n="hero3.desc">
+                  Zgjedh destinacionin nga lista dhe çmimi del automatikisht. Pa stres.
+                </p>
+                <div class="mt-7 flex flex-wrap gap-3">
+                  <a href="#pricing" class="px-5 py-3 rounded-xl btn-yellow font-extrabold" data-i18n="hero3.cta1">Shiko çmimet</a>
+                  <a href="#book" class="px-5 py-3 rounded-xl bg-white/10 border border-white/20 font-bold" data-i18n="hero3.cta2">Rezervo</a>
+                </div>
+              </div>
+
+              <div class="hidden lg:block min-w-0">
+                <div class="bg-white rounded-3xl p-8 text-zinc-900 shadow-soft">
+                  <div class="font-black text-xl" data-i18n="hero3.cardTitle">Shembull</div>
+                  <div class="text-zinc-600 mt-1" data-i18n="hero3.cardDesc">Mitrovicë → Prishtinë</div>
+                  <div class="mt-5 text-4xl font-black">€35</div>
+                  <div class="mt-2 text-sm text-zinc-600" data-i18n="hero3.cardNote">Dërgohet direkt në WhatsApp.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="absolute z-20 left-4 right-4 top-1/2 -translate-y-1/2 flex items-center justify-between pointer-events-none">
+              <button class="nav-btn pointer-events-auto swiper-button-prev" aria-label="Para">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                  <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+              <button class="nav-btn pointer-events-auto swiper-button-next" aria-label="Tjetër">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                  <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
+
+            <div class="swiper-pagination"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="services" class="py-16">
+    <div class="mx-auto container-max px-4">
+      <div class="section-title text-xs text-zinc-500" data-i18n="services.kicker">Çka ofrojmë</div>
+      <div class="mt-2 text-4xl font-black" data-i18n="services.title">Shërbime profesionale</div>
+      <p class="mt-4 text-zinc-600 max-w-3xl" data-i18n="services.desc">
+        Transport i besueshëm, i pastër dhe në kohë. Rezervim i lehtë me WhatsApp.
+      </p>
+
+      <div class="mt-10 grid md:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div class="p-6 rounded-2xl border shadow-soft">
+          <div class="font-black" data-i18n="services.s1t">Pickup në adresë</div>
+          <div class="text-sm text-zinc-600 mt-2" data-i18n="services.s1d">Marrje në kohë, 24/7.</div>
+        </div>
+        <div class="p-6 rounded-2xl border shadow-soft">
+          <div class="font-black" data-i18n="services.s2t">Transfer Aeroport</div>
+          <div class="text-sm text-zinc-600 mt-2" data-i18n="services.s2d">Shpejt, sigurt dhe korrekt.</div>
+        </div>
+        <div class="p-6 rounded-2xl border shadow-soft">
+          <div class="font-black" data-i18n="services.s3t">Udhëtime të gjata</div>
+          <div class="text-sm text-zinc-600 mt-2" data-i18n="services.s3d">Në gjithë Kosovën.</div>
+        </div>
+        <div class="p-6 rounded-2xl border shadow-soft">
+          <div class="font-black" data-i18n="services.s4t">Rezervim i shpejtë</div>
+          <div class="text-sm text-zinc-600 mt-2" data-i18n="services.s4d">1 klik në WhatsApp.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing (CLICKABLE) -->
+  <section id="pricing" class="py-16 bg-zinc-50">
+    <div class="mx-auto container-max px-4">
+      <div class="section-title text-xs text-zinc-500" data-i18n="pricing.kicker">Destinacionet</div>
+      <div class="mt-2 text-4xl font-black" data-i18n="pricing.title">Çmimet fikse nga Mitrovica</div>
+      <p class="mt-4 text-zinc-600 max-w-3xl" data-i18n="pricing.desc">
+        Kliko një destinacion — forma mbushet automatikisht.
+      </p>
+
+      <div id="pricingCards" class="mt-10 grid md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+
+      <div class="mt-6 text-xs text-zinc-500" data-i18n="pricing.note">
+        *Për pyetje shtesë ose kërkesa speciale – na shkruaj në WhatsApp.
+      </div>
+    </div>
+  </section>
+
+  <!-- Reviews -->
+  <section id="reviews" class="py-16">
+    <div class="mx-auto container-max px-4">
+      <div class="section-title text-xs text-zinc-500" data-i18n="reviews.kicker">Klientët për ne</div>
+      <div class="mt-2 text-4xl font-black" data-i18n="reviews.title">Vlerësime</div>
+
+      <div class="mt-10 grid md:grid-cols-3 gap-5">
+        <div class="p-6 rounded-2xl border shadow-soft">
+          <p class="text-zinc-700" data-i18n="reviews.r1">Shumë korrekt, veturë e pastër dhe erdhi në kohë.</p>
+          <div class="mt-4 font-bold">— Client</div>
+        </div>
+        <div class="p-6 rounded-2xl border shadow-soft">
+          <p class="text-zinc-700" data-i18n="reviews.r2">Transfer për aeroport pa stres. Rekomandoj.</p>
+          <div class="mt-4 font-bold">— Client</div>
+        </div>
+        <div class="p-6 rounded-2xl border shadow-soft">
+          <p class="text-zinc-700" data-i18n="reviews.r3">Çmim i qartë, komunikim i shpejtë.</p>
+          <div class="mt-4 font-bold">— Client</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="py-16 bg-zinc-900 text-white">
+    <div class="mx-auto container-max px-4 grid lg:grid-cols-2 gap-10">
+      <div>
+        <div class="section-title text-xs text-yellow-300/90">Kontakt</div>
+        <div class="mt-2 text-4xl font-black">Na kontakto shpejt</div>
+        <p class="mt-4 text-white/80 max-w-xl">Për pyetje shtesë, kërkesa speciale ose informata të tjera – na shkruaj ose na thirr.</p>
+
+        <div class="mt-8 grid gap-4">
+          <div class="p-5 rounded-2xl bg-white/5 border border-white/10">
+            <div class="text-xs section-title text-white/70">Lokacion</div>
+            <div class="font-bold mt-1">Mitrovicë / Kosovë</div>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-white/5 border border-white/10">
+            <div class="text-xs section-title text-white/70">Telefon</div>
+            <div class="font-bold mt-1">
+              <a class="hover:underline" href="tel:+38349475027">+383 49 475 027</a>
+            </div>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-white/5 border border-white/10">
+            <div class="text-xs section-title text-white/70">WhatsApp</div>
+            <div class="font-bold mt-1">
+              <a class="hover:underline" href="https://wa.me/38349475027" target="_blank" rel="noreferrer">Chat</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-3xl p-6 md:p-8 text-zinc-900 shadow-soft">
+        <div class="text-2xl font-black">Dërgo mesazh</div>
+        <form class="mt-5 grid gap-3" onsubmit="return sendContact(event)">
+          <input class="input rounded-xl px-4 py-3 w-full" required name="fullname" placeholder="Emri & Mbiemri" autocomplete="name" />
+          <input class="input rounded-xl px-4 py-3 w-full" required name="phone" placeholder="Telefoni" autocomplete="tel" />
+          <textarea class="input rounded-xl px-4 py-3 h-28 w-full" required name="msg" placeholder="Mesazhi"></textarea>
+          <label class="flex items-start gap-2 text-sm text-zinc-600">
+            <input required type="checkbox" class="mt-1" />
+            <span>Pajtohem që të dhënat të përdoren vetëm për kontakt.</span>
+          </label>
+          <button class="px-5 py-3 rounded-xl btn-yellow font-extrabold w-full">Dërgo në WhatsApp</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-zinc-950 text-white">
+    <div class="mx-auto container-max px-4 py-10 flex flex-col md:flex-row gap-6 md:items-center md:justify-between">
+      <div>
+        <div class="font-black text-xl">Mitro Transfer</div>
+        <div class="text-white/70 mt-2">Taxi i besueshëm • 24/7 • Aeroport • Qytetet</div>
+      </div>
+      <div class="flex flex-wrap gap-3">
+        <a class="px-4 py-3 rounded-xl btn-yellow font-extrabold" href="#book">Rezervo</a>
+        <a class="px-4 py-3 rounded-xl bg-white/10 border border-white/20 font-bold" href="tel:+38349475027">Thirr</a>
+        <a class="px-4 py-3 rounded-xl bg-white/10 border border-white/20 font-bold"
+           href="https://wa.me/38349475027" target="_blank" rel="noreferrer">WhatsApp</a>
+      </div>
+    </div>
+    <div class="border-t border-white/10 py-4 text-center text-white/60 text-sm">
+      © <span id="year"></span> Mitro Transfer.
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script>
+    const WHATSAPP_NUMBER = "38349475027";
+
+    const DESTINATIONS = [
+      { key:"prishtine", name:{sq:"Prishtinë", en:"Pristina", de:"Pristina"}, price:35 },
+      { key:"aeroport",  name:{sq:"Aeroport (Prishtinë)", en:"Airport (Pristina)", de:"Flughafen (Pristina)"}, price:45 },
+      { key:"ferizaj",   name:{sq:"Ferizaj", en:"Ferizaj", de:"Ferizaj"}, price:50 },
+      { key:"gjilan",    name:{sq:"Gjilan", en:"Gjilan", de:"Gjilan"}, price:60 },
+      { key:"podujeve",  name:{sq:"Podujevë", en:"Podujevo", de:"Podujevo"}, price:40 },
+      { key:"peje",      name:{sq:"Pejë", en:"Peja", de:"Peja"}, price:60 },
+      { key:"gjakove",   name:{sq:"Gjakovë", en:"Gjakova", de:"Gjakova"}, price:70 },
+      { key:"prizren",   name:{sq:"Prizren", en:"Prizren", de:"Prizren"}, price:70 },
+      { key:"rahovec",   name:{sq:"Rahovec", en:"Rahovec", de:"Rahovec"}, price:75 },
+      { key:"vushtrri",  name:{sq:"Vushtrri", en:"Vushtrri", de:"Vushtrri"}, price:12 },
+      { key:"skenderaj", name:{sq:"Skenderaj", en:"Skenderaj", de:"Skenderaj"}, price:15 },
+      { key:"drenas",    name:{sq:"Drenas", en:"Drenas", de:"Drenas"}, price:35 },
+      { key:"lipjan",    name:{sq:"Lipjan", en:"Lipjan", de:"Lipjan"}, price:45 },
+      { key:"fushkosove",name:{sq:"Fushë Kosovë", en:"Fushe Kosovo", de:"Fushe Kosovo"}, price:35 },
+      { key:"obiliq",    name:{sq:"Obiliq", en:"Obiliq", de:"Obiliq"}, price:35 },
+    ];
+
+    let currentLang = "sq";
+
+    function moneyEUR(n){ return "€" + Number(n).toFixed(0); }
+
+    function populateDestinations(){
+      const sel = document.getElementById("destinationSelect");
+      if(!sel) return;
+      sel.innerHTML = `<option value="">Zgjedh destinacionin</option>`;
+      DESTINATIONS.forEach(d => {
+        const opt = document.createElement("option");
+        const name = d.name[currentLang] || d.name.sq;
+        opt.value = d.key;
+        opt.textContent = `${name} - ${moneyEUR(d.price)}`;
+        opt.dataset.price = String(d.price);
+        sel.appendChild(opt);
+      });
+      updatePricePreview();
+    }
+
+    function updatePricePreview(){
+      const sel = document.getElementById("destinationSelect");
+      const priceEl = document.getElementById("pricePreview");
+      if(!sel || !priceEl) return;
+      const opt = sel.options[sel.selectedIndex];
+      const p = opt && opt.dataset ? opt.dataset.price : "";
+      priceEl.textContent = p ? moneyEUR(p) : "€—";
+    }
+
+    // CLICK CARD -> fill form + scroll
+    function selectDestination(key){
+      const sel = document.getElementById("destinationSelect");
+      if(!sel) return;
+
+      sel.value = key;
+      updatePricePreview();
+
+      // scroll to form
+      document.getElementById("book").scrollIntoView({ behavior: "smooth", block: "start" });
+
+      // focus first field (fullname)
+      const first = document.querySelector('input[name="fullname"]');
+      if(first) setTimeout(() => first.focus(), 300);
+    }
+
+    function renderPricingCards(){
+      const wrap = document.getElementById("pricingCards");
+      if(!wrap) return;
+
+      wrap.innerHTML = DESTINATIONS.map(d => {
+        const name = d.name[currentLang] || d.name.sq;
+        return `
+          <div class="price-card p-7 rounded-2xl bg-white border shadow-soft"
+               role="button" tabindex="0"
+               onclick="selectDestination('${d.key}')"
+               onkeydown="if(event.key==='Enter' || event.key===' ') { event.preventDefault(); selectDestination('${d.key}'); }">
+            <div class="font-black text-xl">${name}</div>
+            <div class="text-zinc-600 mt-2">Mitrovicë → ${name}</div>
+            <div class="mt-5 text-3xl font-black text-zinc-900">${moneyEUR(d.price)}</div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function sendBooking(e){
+      e.preventDefault();
+      const f = new FormData(e.target);
+
+      const sel = document.getElementById("destinationSelect");
+      const key = sel ? sel.value : "";
+      const dest = DESTINATIONS.find(d => d.key === key);
+      const destName = dest ? (dest.name[currentLang] || dest.name.sq) : "";
+      const destPrice = dest ? dest.price : "";
+
+      const text =
+`🚕 Booking - Mitro Transfer
+Emri: ${f.get('fullname')}
+Tel: ${f.get('phone')}
+Destinacioni: ${destName}
+Çmimi: ${destPrice ? moneyEUR(destPrice) : "—"}
+Data: ${f.get('date')} ${f.get('time')}
+Klasa: ${f.get('class')}
+Veturë: ${f.get('car')}`;
+
+      window.open("https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(text), "_blank");
+      return false;
+    }
+
+    function sendContact(e){
+      e.preventDefault();
+      const f = new FormData(e.target);
+      const text =
+`💬 Mesazh - Mitro Transfer
+Emri: ${f.get('fullname')}
+Tel: ${f.get('phone')}
+Mesazhi: ${f.get('msg')}`;
+      window.open("https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(text), "_blank");
+      return false;
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      document.getElementById('year').textContent = new Date().getFullYear();
+
+      // Slider: NO autoplay, NO swipe, only arrows + dots
+      new Swiper('.swiper', {
+        loop: true,
+        autoplay: false,
+        allowTouchMove: false,
+        simulateTouch: false,
+        pagination: { el: '.swiper-pagination', clickable: true },
+        navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+        preventClicks: false,
+        preventClicksPropagation: false,
+      });
+
+      // Smooth anchors
+      document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', (e) => {
+          const id = a.getAttribute('href');
+          if (!id || id === '#') return;
+          const el = document.querySelector(id);
+          if (!el) return;
+          e.preventDefault();
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      });
+
+      // init language
+      const langEl = document.getElementById("langSelect");
+      currentLang = (langEl && langEl.value) ? langEl.value : "sq";
+
+      populateDestinations();
+      renderPricingCards();
+
+      const sel = document.getElementById("destinationSelect");
+      if(sel) sel.addEventListener("change", updatePricePreview);
+
+      if(langEl){
+        langEl.addEventListener("change", () => {
+          currentLang = langEl.value || "sq";
+          populateDestinations();
+          renderPricingCards();
+        });
+      }
+    });
+  </script>
+</body>
+</html>
