@@ -6,11 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Mitro Transfer - Taxi</title>
 
-<meta name="description" content="Taxi Mitrovicë 24/7. Transfer Airport Prishtinë, udhëtime të sigurta dhe të shpejta. Rezervo online.">
+  <meta name="description" content="Taxi Mitrovicë 24/7. Transfer Airport Prishtinë, udhëtime të sigurta dhe të shpejta. Rezervo online.">
+  <meta name="keywords" content="taxi mitrovice, taxi mitrovica, taxi airport prishtina, mitro transfer taxi">
+  <meta name="robots" content="index, follow">
 
-<meta name="keywords" content="taxi mitrovice, taxi mitrovica, taxi airport prishtina, mitro transfer taxi">
-
-<meta name="robots" content="index, follow">
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -45,10 +44,7 @@
 }
 </script>
 
-
-
   <link rel="icon" type="image/png" href="assets/img/favicon.png">
-
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
 
@@ -61,15 +57,14 @@
     .shadow-soft { box-shadow: 0 10px 30px rgba(0,0,0,.10); }
     .input { border:1px solid rgba(0,0,0,.14); }
     .section-title { letter-spacing:.12em; text-transform:uppercase; }
+    .overlay-hidden { display:none; }
 
-    /* Slider arrows */
     .nav-btn{
       width:44px;height:44px;border-radius:999px;display:flex;align-items:center;justify-content:center;
       background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);color:#fff;cursor:pointer;user-select:none;
     }
     .nav-btn:hover{ background:rgba(255,255,255,.18); }
 
-    /* Chips */
     .chip{
       display:inline-flex; align-items:center; gap:.5rem;
       padding:.35rem .65rem; border-radius:999px;
@@ -83,7 +78,6 @@
       font-weight:700; font-size:.85rem;
     }
 
-    /* Clickable pricing cards */
     .price-card{
       cursor:pointer;
       transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
@@ -96,16 +90,12 @@
     }
     .price-card:active{ transform: translateY(0px); }
 
-    /* Swiper sizing responsive */
-    .hero-swiper{ height: 680px; }
-    @media (max-width: 1024px){
-      .hero-swiper{ height: auto; }
-    }
+    /* ✅ FIX: Swiper/hero MUST auto-size to content (booking card can grow) */
+    .hero-swiper { height: auto !important; }
+    .hero-swiper .swiper-wrapper { height: auto !important; }
+    .hero-swiper .swiper-slide { height: auto !important; }
+    .swiper-pagination { position: static !important; margin-top: 14px; }
 
-    /* Mobile menu overlay */
-    .overlay-hidden { display:none; }
-
-    /* Stars */
     .star-btn{
       width:44px;height:44px;border-radius:12px;
       display:flex;align-items:center;justify-content:center;
@@ -118,6 +108,23 @@
     .star-btn:hover{ transform: translateY(-1px); box-shadow: 0 10px 22px rgba(0,0,0,.08); }
     .star-btn.active{ border-color: rgba(246,198,13,.95); box-shadow: 0 10px 22px rgba(0,0,0,.08); }
     .star-icon{ width:20px;height:20px; }
+
+    .loc-badge{
+      display:inline-flex;
+      align-items:center;
+      gap:.5rem;
+      padding:.4rem .7rem;
+      border-radius:999px;
+      border:1px solid rgba(0,0,0,.12);
+      background:#fff;
+      font-weight:700;
+      font-size:.85rem;
+      color:#333;
+      min-height: 44px;
+    }
+
+    /* ✅ Extra safety so hero never gets "covered" by next section */
+    .hero-pad { padding-bottom: 24px; }
   </style>
 </head>
 
@@ -159,7 +166,8 @@
 
       <!-- Right actions -->
       <div class="flex items-center gap-2">
-        <select id="langSelect" class="hidden sm:block text-sm font-semibold border rounded-lg px-3 py-2 bg-white">
+        <!-- ✅ FIX: language selector visible on mobile too -->
+        <select id="langSelect" class="text-sm font-semibold border rounded-lg px-3 py-2 bg-white">
           <option value="sq">Shqip</option>
           <option value="en">English</option>
           <option value="de">Deutsch</option>
@@ -191,6 +199,16 @@
         </button>
       </div>
 
+      <!-- ✅ Also include language selector inside menu (for clarity) -->
+      <div class="mt-4">
+        <div class="text-xs section-title text-zinc-500 mb-2">Language</div>
+        <select id="langSelectMobile" class="w-full text-sm font-semibold border rounded-xl px-3 py-3 bg-white">
+          <option value="sq">Shqip</option>
+          <option value="en">English</option>
+          <option value="de">Deutsch</option>
+        </select>
+      </div>
+
       <div class="mt-5 grid gap-2 text-base font-semibold">
         <a class="py-3 px-3 rounded-xl hover:bg-zinc-50" href="#home" data-i18n="nav.home">Home</a>
         <a class="py-3 px-3 rounded-xl hover:bg-zinc-50" href="#services" data-i18n="nav.services">Shërbimet</a>
@@ -211,19 +229,18 @@
   </div>
 
   <!-- Hero slider -->
-  <section id="home" class="relative">
+  <section id="home" class="relative hero-pad">
     <div class="swiper hero-swiper">
       <div class="swiper-wrapper">
 
         <!-- Slide 1 -->
         <div class="swiper-slide">
-          <div class="min-h-[720px] lg:min-h-0 h-full bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-700 text-white">
-            <div class="mx-auto container-max px-4 py-10 lg:py-0 h-full w-full grid lg:grid-cols-2 items-center gap-10">
-              <div>
+          <div class="bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-700 text-white">
+            <div class="mx-auto container-max px-4 py-10 lg:py-10 w-full grid lg:grid-cols-2 items-start gap-10">
+              <div class="pt-2">
                 <div class="section-title text-xs text-yellow-300/90" data-i18n="hero1.kicker">Udhëtim i rehatshëm</div>
                 <h1 class="mt-3 text-3xl sm:text-4xl md:text-5xl font-black leading-tight" data-i18n="hero1.title">Rezervo Taxi Online</h1>
 
-                <!-- SEO-friendly subheadline (translated via i18n) -->
                 <h2 class="mt-3 text-lg sm:text-xl font-extrabold text-white/95" data-i18n="hero1.sub">
                   Taxi Mitrovicë – Transfer Aeroport Prishtinë (24/7)
                 </h2>
@@ -276,12 +293,36 @@
                     <div class="text-xl font-black" id="pricePreview">€—</div>
                   </div>
 
+                  <!-- ✅ FIX: labels for date & time -->
                   <div class="grid sm:grid-cols-2 gap-3">
-                    <input class="input rounded-xl px-4 py-3 w-full" required name="date" type="date" />
-                    <input class="input rounded-xl px-4 py-3 w-full" required name="time" type="time" />
+                    <div class="grid gap-2">
+                      <label class="text-sm font-bold text-zinc-700" data-i18n="book.date_label">Data</label>
+                      <input class="input rounded-xl px-4 py-3 w-full" required name="date" type="date" />
+                    </div>
+                    <div class="grid gap-2">
+                      <label class="text-sm font-bold text-zinc-700" data-i18n="book.time_label">Ora</label>
+                      <input class="input rounded-xl px-4 py-3 w-full" required name="time" type="time" />
+                    </div>
                   </div>
 
-                  <!-- ONLY STANDARD (no premium/business) -->
+                  <!-- Pickup address + location -->
+                  <div class="grid gap-2">
+                    <label class="text-sm font-bold text-zinc-700" data-i18n="book.pickup_label">Adresa e marrjes</label>
+                    <input class="input rounded-xl px-4 py-3 w-full" name="pickup_address"
+                          data-i18n-placeholder="ph.pickup_address" placeholder="Rruga, numri, qyteti (opsionale)" />
+                    <div class="flex flex-wrap items-center gap-2">
+                      <button type="button"
+                              class="px-4 py-3 rounded-xl btn-yellow font-extrabold"
+                              onclick="getPickupLocation()"
+                              data-i18n="book.get_location">
+                        Merr lokacionin
+                      </button>
+                      <span id="locStatus" class="loc-badge"></span>
+                    </div>
+                    <input type="hidden" name="pickup_lat" id="pickupLat" />
+                    <input type="hidden" name="pickup_lng" id="pickupLng" />
+                  </div>
+
                   <input type="hidden" name="class" value="Standard" />
 
                   <div class="grid gap-3">
@@ -290,14 +331,19 @@
                     </select>
                   </div>
 
-                  <label class="flex items-start gap-2 text-sm text-zinc-600">
-                    <input required type="checkbox" class="mt-1" />
-                    <span data-i18n="book.consent">Pajtohem që të dhënat të përdoren vetëm për rezervim.</span>
-                  </label>
+                  <!-- CONSENT -->
+                  <div class="flex items-start gap-3 text-sm text-zinc-600">
+                    <input id="bookingConsent" required type="checkbox" class="mt-1 cursor-pointer" />
+                    <label for="bookingConsent" class="cursor-pointer select-none" data-i18n="book.consent">
+                      Pajtohem që të dhënat të përdoren vetëm për rezervim.
+                    </label>
+                  </div>
 
-                  <button class="mt-1 px-5 py-3 rounded-xl btn-yellow font-extrabold w-full" data-i18n="cta.send_whatsapp">
+                  <!-- SEND BUTTON -->
+                  <button type="submit" class="mt-1 px-5 py-3 rounded-xl btn-yellow font-extrabold w-full" data-i18n="cta.send_whatsapp">
                     Dërgo në WhatsApp
                   </button>
+
                   <div class="text-xs text-zinc-500" data-i18n="book.note">
                     Rezervimi hapet gati në WhatsApp — ti e dërgon me 1 klik.
                   </div>
@@ -305,7 +351,7 @@
               </div>
             </div>
 
-            <!-- arrows only -->
+            <!-- nav arrows -->
             <div class="absolute z-20 left-4 right-4 top-1/2 -translate-y-1/2 flex items-center justify-between pointer-events-none">
               <button class="nav-btn pointer-events-auto swiper-button-prev" aria-label="Para">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
@@ -325,8 +371,8 @@
 
         <!-- Slide 2 -->
         <div class="swiper-slide">
-          <div class="min-h-[560px] h-full bg-gradient-to-br from-zinc-950 via-zinc-900 to-yellow-500/30 text-white">
-            <div class="mx-auto container-max px-4 py-16 h-full w-full grid lg:grid-cols-2 items-center gap-10">
+          <div class="bg-gradient-to-br from-zinc-950 via-zinc-900 to-yellow-500/30 text-white">
+            <div class="mx-auto container-max px-4 py-16 w-full grid lg:grid-cols-2 items-center gap-10">
               <div>
                 <div class="section-title text-xs text-yellow-300/90" data-i18n="hero2.kicker">Siguri & korrektësi</div>
                 <h2 class="mt-3 text-3xl sm:text-4xl md:text-5xl font-black leading-tight" data-i18n="hero2.title">Taxi Service 24/7</h2>
@@ -470,9 +516,7 @@
 
           <div>
             <div class="text-sm font-bold text-zinc-700" data-i18n="reviews.stars_label">Vlerësimi me yje</div>
-            <div class="mt-3 flex flex-wrap gap-2" id="starWrap" aria-label="Stars">
-              <!-- buttons injected by JS -->
-            </div>
+            <div class="mt-3 flex flex-wrap gap-2" id="starWrap" aria-label="Stars"></div>
             <input type="hidden" name="stars" id="starsInput" value="5" />
             <div class="mt-2 text-xs text-zinc-500" id="starsText"></div>
           </div>
@@ -480,10 +524,12 @@
           <textarea class="input rounded-xl px-4 py-3 h-28 w-full" required name="msg"
                     data-i18n-placeholder="ph.review" placeholder="Shkruaj vlerësimin..."></textarea>
 
-          <label class="flex items-start gap-2 text-sm text-zinc-600">
-            <input required type="checkbox" class="mt-1" />
-            <span data-i18n="reviews.consent">Pajtohem që vlerësimi të përdoret për publikim (pas verifikimit).</span>
-          </label>
+          <div class="flex items-start gap-3 text-sm text-zinc-600">
+            <input id="reviewConsent" required type="checkbox" class="mt-1 cursor-pointer" />
+            <label for="reviewConsent" class="cursor-pointer select-none" data-i18n="reviews.consent">
+              Pajtohem që vlerësimi të përdoret për publikim (pas verifikimit).
+            </label>
+          </div>
 
           <button class="px-5 py-3 rounded-xl btn-yellow font-extrabold w-full" data-i18n="reviews.send_btn">
             Dërgo vlerësimin në WhatsApp
@@ -532,11 +578,17 @@
           <input class="input rounded-xl px-4 py-3 w-full" required name="fullname" data-i18n-placeholder="ph.fullname" placeholder="Emri & Mbiemri" autocomplete="name" />
           <input class="input rounded-xl px-4 py-3 w-full" required name="phone" data-i18n-placeholder="ph.phone" placeholder="Telefoni" autocomplete="tel" />
           <textarea class="input rounded-xl px-4 py-3 h-28 w-full" required name="msg" data-i18n-placeholder="ph.message" placeholder="Mesazhi"></textarea>
-          <label class="flex items-start gap-2 text-sm text-zinc-600">
-            <input required type="checkbox" class="mt-1" />
-            <span data-i18n="contact.consent">Pajtohem që të dhënat të përdoren vetëm për kontakt.</span>
-          </label>
-          <button class="px-5 py-3 rounded-xl btn-yellow font-extrabold w-full" data-i18n="cta.send_whatsapp">Dërgo në WhatsApp</button>
+
+          <div class="flex items-start gap-3 text-sm text-zinc-600">
+            <input id="contactConsent" required type="checkbox" class="mt-1 cursor-pointer" />
+            <label for="contactConsent" class="cursor-pointer select-none" data-i18n="contact.consent">
+              Pajtohem që të dhënat të përdoren vetëm për kontakt.
+            </label>
+          </div>
+
+          <button class="px-5 py-3 rounded-xl btn-yellow font-extrabold w-full" data-i18n="cta.send_whatsapp">
+            Dërgo në WhatsApp
+          </button>
         </form>
       </div>
     </div>
@@ -563,7 +615,7 @@
 
   <!-- Floating WhatsApp button -->
   <a href="https://wa.me/38343878084" target="_blank" rel="noreferrer"
-     class="fixed bottom-5 right-5 z-[70] w-14 h-14 rounded-full bg-green-500 shadow-soft flex items-center justify-content:center items-center justify-center">
+     class="fixed bottom-5 right-5 z-[70] w-14 h-14 rounded-full bg-green-500 shadow-soft flex items-center justify-center">
     <svg width="26" height="26" viewBox="0 0 32 32" fill="none">
       <path d="M19.11 17.22c-.23-.12-1.35-.66-1.56-.74-.2-.07-.35-.12-.5.12-.15.23-.58.74-.71.89-.13.15-.26.17-.49.05-.23-.12-.97-.36-1.84-1.14-.68-.6-1.14-1.35-1.27-1.58-.13-.23-.01-.36.1-.48.1-.1.23-.26.35-.39.12-.13.15-.23.23-.39.07-.15.04-.29-.02-.41-.06-.12-.5-1.2-.69-1.64-.18-.43-.36-.37-.5-.38h-.43c-.15 0-.39.06-.6.29-.2.23-.78.76-.78 1.85 0 1.09.8 2.15.91 2.3.12.15 1.57 2.4 3.8 3.37.53.23.95.36 1.27.46.53.17 1.01.15 1.39.09.42-.06 1.35-.55 1.54-1.08.19-.53.19-.98.13-1.08-.06-.1-.2-.15-.44-.27z" fill="white"/>
       <path fill-rule="evenodd" clip-rule="evenodd" d="M16 3C9.37 3 4 8.37 4 15c0 2.09.54 4.05 1.49 5.75L4 29l8.42-1.4A11.9 11.9 0 0 0 16 27c6.63 0 12-5.37 12-12S22.63 3 16 3zm0 21.5c-1.93 0-3.72-.56-5.23-1.53l-.38-.24-5 0.83.84-4.87-.26-.4A9.46 9.46 0 0 1 6.5 15C6.5 9.75 10.75 5.5 16 5.5S25.5 9.75 25.5 15 21.25 24.5 16 24.5z" fill="white"/>
@@ -574,11 +626,7 @@
   <script>
     // ========= CONFIG =========
     const WHATSAPP_NUMBER = "38343878084";
-
-    // PUT YOUR LINKS HERE (when you have them)
-    // Example Google: https://g.page/r/XXXXX/review
-    // Example Facebook: https://www.facebook.com/yourpage/reviews
-    const GOOGLE_REVIEW_URL = "https://g.page/r/CT_H2aZ2O22fEAI/review";
+    const GOOGLE_REVIEW_URL = "https://g.page/r/Cakp_zRPqiTvEAI/review";
     const FACEBOOK_REVIEW_URL = "https://www.facebook.com/mitrotransfer/reviews";
 
     // ========= i18n =========
@@ -620,6 +668,15 @@
         "book.choose_dest":"Zgjedh destinacionin",
         "book.choose_dest_opt":"Zgjedh destinacionin",
         "book.price":"Çmimi",
+        "book.date_label":"Data",
+        "book.time_label":"Ora",
+        "book.pickup_label":"Adresa e marrjes",
+        "book.get_location":"Merr lokacionin",
+        "book.loc_ok":"Lokacioni u mor ✔",
+        "book.loc_wait":"Duke marrë lokacionin…",
+        "book.loc_denied":"Lejo lokacionin në browser (Allow) që ta dërgojmë.",
+        "book.loc_unavailable":"Lokacioni s’është i disponueshëm në këtë pajisje.",
+        "book.loc_error":"S’u mor lokacioni. Provo prapë.",
         "book.consent":"Pajtohem që të dhënat të përdoren vetëm për rezervim.",
         "book.note":"Rezervimi hapet gati në WhatsApp — ti e dërgon me 1 klik.",
 
@@ -684,12 +741,15 @@
         "ph.phone":"Telefoni",
         "ph.message":"Mesazhi",
         "ph.review":"Shkruaj vlerësimin...",
+        "ph.pickup_address":"Rruga, numri, qyteti (opsionale)",
 
         "wa.booking_title":"🚕 Booking - Mitro Transfer",
         "wa.msg_title":"💬 Mesazh - Mitro Transfer",
         "wa.review_title":"⭐ Vlerësim - Mitro Transfer",
         "wa.name":"Emri",
         "wa.tel":"Tel",
+        "wa.pickup_address":"Adresa",
+        "wa.location":"Lokacioni",
         "wa.destination":"Destinacioni",
         "wa.price":"Çmimi",
         "wa.date":"Data",
@@ -738,6 +798,15 @@
         "book.choose_dest":"Choose destination",
         "book.choose_dest_opt":"Choose destination",
         "book.price":"Price",
+        "book.date_label":"Date",
+        "book.time_label":"Time",
+        "book.pickup_label":"Pickup address",
+        "book.get_location":"Get location",
+        "book.loc_ok":"Location captured ✔",
+        "book.loc_wait":"Getting location…",
+        "book.loc_denied":"Please allow location in your browser (Allow).",
+        "book.loc_unavailable":"Location is not available on this device.",
+        "book.loc_error":"Couldn’t get location. Try again.",
         "book.consent":"I agree my data will be used only for booking.",
         "book.note":"The booking opens ready in WhatsApp — you send it with 1 click.",
 
@@ -802,12 +871,15 @@
         "ph.phone":"Phone",
         "ph.message":"Message",
         "ph.review":"Write your review...",
+        "ph.pickup_address":"Street, number, city (optional)",
 
         "wa.booking_title":"🚕 Booking - Mitro Transfer",
         "wa.msg_title":"💬 Message - Mitro Transfer",
         "wa.review_title":"⭐ Review - Mitro Transfer",
         "wa.name":"Name",
         "wa.tel":"Phone",
+        "wa.pickup_address":"Address",
+        "wa.location":"Location",
         "wa.destination":"Destination",
         "wa.price":"Price",
         "wa.date":"Date",
@@ -856,6 +928,15 @@
         "book.choose_dest":"Ziel auswählen",
         "book.choose_dest_opt":"Ziel auswählen",
         "book.price":"Preis",
+        "book.date_label":"Datum",
+        "book.time_label":"Uhrzeit",
+        "book.pickup_label":"Abholadresse",
+        "book.get_location":"Standort holen",
+        "book.loc_ok":"Standort erfasst ✔",
+        "book.loc_wait":"Standort wird abgerufen…",
+        "book.loc_denied":"Bitte Standort im Browser erlauben (Allow).",
+        "book.loc_unavailable":"Standort ist auf diesem Gerät nicht verfügbar.",
+        "book.loc_error":"Standort konnte nicht ermittelt werden. Bitte erneut versuchen.",
         "book.consent":"Ich stimme zu, dass die Daten nur für die Buchung verwendet werden.",
         "book.note":"Die Buchung öffnet sich fertig in WhatsApp — mit 1 Klick senden.",
 
@@ -920,12 +1001,15 @@
         "ph.phone":"Telefon",
         "ph.message":"Nachricht",
         "ph.review":"Bewertung schreiben...",
+        "ph.pickup_address":"Straße, Nummer, Stadt (optional)",
 
         "wa.booking_title":"🚕 Buchung - Mitro Transfer",
         "wa.msg_title":"💬 Nachricht - Mitro Transfer",
         "wa.review_title":"⭐ Bewertung - Mitro Transfer",
         "wa.name":"Name",
         "wa.tel":"Telefon",
+        "wa.pickup_address":"Adresse",
+        "wa.location":"Standort",
         "wa.destination":"Ziel",
         "wa.price":"Preis",
         "wa.date":"Datum",
@@ -955,7 +1039,6 @@
       return (dict && dict[key]) ? dict[key] : (I18N.sq[key] || key);
     }
 
-    // FIXED DESTINATIONS
     const DESTINATIONS = [
       { key:"prishtine",  name:{sq:"Prishtinë", en:"Pristina", de:"Pristina"}, price:35 },
       { key:"aeroport",   name:{sq:"Aeroport (Prishtinë)", en:"Airport (Pristina)", de:"Flughafen (Pristina)"}, price:45 },
@@ -971,7 +1054,7 @@
       { key:"drenas",     name:{sq:"Drenas", en:"Drenas", de:"Drenas"}, price:35 },
       { key:"lipjan",     name:{sq:"Lipjan", en:"Lipjan", de:"Lipjan"}, price:45 },
       { key:"fushkosove", name:{sq:"Fushë Kosovë", en:"Fushe Kosovo", de:"Fushë Kosovo"}, price:35 },
-      { key:"obiliq",     name:{sq:"Obiliq", en:"Obiliq", de:"Obiliq"}, price:35 },
+      { key:"obiliq",     name:{sq:"Obiliq", en:"Obiliq", de:"Obiliq"}, price:35 }
     ];
 
     function destName(d){
@@ -999,7 +1082,6 @@
         opt.textContent = t(opt.getAttribute("data-i18n"));
       });
 
-      // update review buttons (links)
       const gbtn = document.getElementById("googleReviewBtn");
       const fbtn = document.getElementById("facebookReviewBtn");
       if(gbtn) gbtn.href = GOOGLE_REVIEW_URL;
@@ -1009,6 +1091,9 @@
       renderPricingCards();
       updatePricePreview();
       updateStarsText();
+
+      const ls = document.getElementById("locStatus");
+      if(ls && !ls.textContent) ls.textContent = t("book.get_location");
     }
 
     function setLang(lang){
@@ -1016,6 +1101,12 @@
       currentLang = lang;
       localStorage.setItem("lang", lang);
       applyLang();
+
+      // ✅ keep both selectors in sync
+      const a = document.getElementById("langSelect");
+      const b = document.getElementById("langSelectMobile");
+      if(a) a.value = lang;
+      if(b) b.value = lang;
     }
 
     function populateDestinations(){
@@ -1086,6 +1177,43 @@
       }).join("");
     }
 
+    // ===== Location capture =====
+    function setLocStatus(msg){
+      const el = document.getElementById("locStatus");
+      if(el) el.textContent = msg;
+    }
+
+    function getPickupLocation(){
+      setLocStatus(t("book.loc_wait"));
+
+      if(!navigator.geolocation){
+        setLocStatus(t("book.loc_unavailable"));
+        return;
+      }
+
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          const lat = pos.coords.latitude;
+          const lng = pos.coords.longitude;
+
+          const latEl = document.getElementById("pickupLat");
+          const lngEl = document.getElementById("pickupLng");
+          if(latEl) latEl.value = String(lat);
+          if(lngEl) lngEl.value = String(lng);
+
+          setLocStatus(t("book.loc_ok"));
+        },
+        (err) => {
+          if(err && err.code === 1){
+            setLocStatus(t("book.loc_denied"));
+          } else {
+            setLocStatus(t("book.loc_error"));
+          }
+        },
+        { enableHighAccuracy: true, timeout: 12000, maximumAge: 0 }
+      );
+    }
+
     function sendBooking(e){
       e.preventDefault();
       const f = new FormData(e.target);
@@ -1097,10 +1225,17 @@
       const destNameTxt = dest ? destName(dest) : "";
       const destPrice = dest ? dest.price : "";
 
+      const pickupAddress = (f.get("pickup_address") || "").toString().trim();
+      const lat = (f.get("pickup_lat") || "").toString().trim();
+      const lng = (f.get("pickup_lng") || "").toString().trim();
+      const mapsLink = (lat && lng) ? `https://maps.google.com/?q=${lat},${lng}` : "";
+
       const text =
 `${t("wa.booking_title")}
 ${t("wa.name")}: ${f.get('fullname')}
 ${t("wa.tel")}: ${f.get('phone')}
+${t("wa.pickup_address")}: ${pickupAddress || "—"}
+${t("wa.location")}: ${mapsLink || "—"}
 ${t("wa.destination")}: ${destNameTxt}
 ${t("wa.price")}: ${destPrice ? moneyEUR(destPrice) : "—"}
 ${t("wa.date")}: ${f.get('date')} ${f.get('time')}
@@ -1214,38 +1349,48 @@ ${t("wa.review")}: ${msg}`;
     document.addEventListener("DOMContentLoaded", () => {
       document.getElementById("year").textContent = new Date().getFullYear();
 
-      // inject links
-      const gbtn = document.getElementById("googleReviewBtn");
-      const fbtn = document.getElementById("facebookReviewBtn");
-      if(gbtn) gbtn.href = GOOGLE_REVIEW_URL;
-      if(fbtn) fbtn.href = FACEBOOK_REVIEW_URL;
+      buildStars();
 
-      // language init
+      // init language selects
       const langSelect = document.getElementById("langSelect");
+      const langSelectMobile = document.getElementById("langSelectMobile");
       if(langSelect){
         langSelect.value = currentLang;
         langSelect.addEventListener("change", (e) => setLang(e.target.value));
       }
+      if(langSelectMobile){
+        langSelectMobile.value = currentLang;
+        langSelectMobile.addEventListener("change", (e) => setLang(e.target.value));
+      }
 
-      // build stars
-      buildStars();
-
-      // apply language
       applyLang();
 
-      // Slider: NO autoplay, NO swipe, only arrows + dots
-      new Swiper('.swiper', {
+      // ✅ FIX: autoHeight so slide grows with booking card (no clipping)
+      const swiper = new Swiper('.hero-swiper', {
         loop: true,
         autoplay: false,
+        autoHeight: true,
         allowTouchMove: false,
         simulateTouch: false,
         pagination: { el: '.swiper-pagination', clickable: true },
         navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
         preventClicks: false,
         preventClicksPropagation: false,
+        on: {
+          slideChangeTransitionEnd: function () {
+            // force recalc height after transitions
+            this.updateAutoHeight(250);
+          }
+        }
       });
 
-      // Smooth anchors + close mobile menu after click
+      // update height when destination changes too (form height can change)
+      const sel = document.getElementById("destinationSelect");
+      if(sel) sel.addEventListener("change", () => {
+        updatePricePreview();
+        if(swiper) swiper.updateAutoHeight(200);
+      });
+
       document.querySelectorAll('a[href^="#"]').forEach(a => {
         a.addEventListener('click', (e) => {
           const id = a.getAttribute('href');
@@ -1258,14 +1403,9 @@ ${t("wa.review")}: ${msg}`;
         });
       });
 
-      const sel = document.getElementById("destinationSelect");
-      if(sel) sel.addEventListener("change", updatePricePreview);
-
-      // menu handlers
       const menuBtn = document.getElementById("menuBtn");
       const menuClose = document.getElementById("menuClose");
       const menuBackdrop = document.getElementById("menuBackdrop");
-
       if(menuBtn) menuBtn.addEventListener("click", openMenu);
       if(menuClose) menuClose.addEventListener("click", closeMenu);
       if(menuBackdrop) menuBackdrop.addEventListener("click", closeMenu);
