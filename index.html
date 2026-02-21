@@ -130,7 +130,7 @@
     .hero-bg-passat{
       position:absolute;
       inset:0;
-      background-image:url("assets/img/passat-b8-bg.jpg?v=2");
+      background-image:url("assets/img/passat-b8-bg.jpg");
       background-size:cover;
       background-position:center;
       z-index:0;
@@ -169,11 +169,12 @@
 
   <!-- Header -->
   <header class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b">
-    <div class="mx-auto container-max px-4 py-3 flex items-center justify-between gap-3">
+    <div class="mx-auto container-max px-4 h-16 flex items-center justify-between gap-3">
       <!-- Logo -->
       <a href="#home" class="flex items-center gap-3 min-w-0">
-        <img src="assets/img/logo-v2.png?v=2" alt="Mitro Transfer"
+        <img src="assets/img/logo.png" alt="Mitro Transfer"
              class="h-11 w-auto object-contain"
+             onerror="this.style.display='none'">
         <div class="leading-tight min-w-0">
           <div class="font-extrabold truncate">Mitro Transfer</div>
           <div class="text-xs text-zinc-500 -mt-0.5" data-i18n="brand.sub">Taxi Service</div>
@@ -662,7 +663,7 @@
 
     // ========= i18n =========
     const I18N = {
-      sq: {
+      sq: { /* ... unchanged (your SQ block) ... */ 
         "topbar.tagline":"24/7 • Kosovë • Aeroport",
         "brand.sub":"Taxi Service",
         "menu.title":"Menu",
@@ -792,8 +793,7 @@
 
         "city.mitrovice":"Mitrovicë"
       },
-
-      en: {
+      en: { /* ... unchanged (your EN block) ... */
         "topbar.tagline":"24/7 • Kosovo • Airport",
         "brand.sub":"Taxi Service",
         "menu.title":"Menu",
@@ -923,8 +923,7 @@
 
         "city.mitrovice":"Mitrovica"
       },
-
-      de: {
+      de: { /* ... unchanged (your DE block) ... */
         "topbar.tagline":"24/7 • Kosovo • Flughafen",
         "brand.sub":"Taxi Service",
         "menu.title":"Menü",
@@ -1055,6 +1054,7 @@
         "city.mitrovice":"Mitrovica"
       },
 
+      /* ✅ NEW: Swedish */
       sv: {
         "topbar.tagline":"24/7 • Kosovo • Flygplats",
         "brand.sub":"Taxi Service",
@@ -1502,19 +1502,16 @@ ${t("wa.review")}: ${msg}`;
 
     // ====== Mobile menu ======
     function openMenu(){
-      const overlay = document.getElementById("menuOverlay");
-      if(overlay) overlay.classList.remove("overlay-hidden");
+      document.getElementById("menuOverlay").classList.remove("overlay-hidden");
       document.body.style.overflow = "hidden";
     }
     function closeMenu(){
-      const overlay = document.getElementById("menuOverlay");
-      if(overlay) overlay.classList.add("overlay-hidden");
+      document.getElementById("menuOverlay").classList.add("overlay-hidden");
       document.body.style.overflow = "";
     }
 
     document.addEventListener("DOMContentLoaded", () => {
-      const y = document.getElementById("year");
-      if(y) y.textContent = new Date().getFullYear();
+      document.getElementById("year").textContent = new Date().getFullYear();
 
       buildStars();
 
