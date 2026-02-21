@@ -172,7 +172,7 @@
     <div class="mx-auto container-max px-4 h-16 flex items-center justify-between gap-3">
       <!-- Logo -->
       <a href="#home" class="flex items-center gap-3 min-w-0">
-        <img src="assets/img/logo-v2.png" alt="Mitro Transfer"
+        <img src="assets/img/logo-v2.png?v=2" alt="Mitro Transfer"
              class="h-11 w-auto object-contain"
              onerror="this.style.display='none'">
         <div class="leading-tight min-w-0">
@@ -663,7 +663,7 @@
 
     // ========= i18n =========
     const I18N = {
-      sq: { /* ... unchanged (your SQ block) ... */ 
+      sq: {
         "topbar.tagline":"24/7 • Kosovë • Aeroport",
         "brand.sub":"Taxi Service",
         "menu.title":"Menu",
@@ -793,7 +793,8 @@
 
         "city.mitrovice":"Mitrovicë"
       },
-      en: { /* ... unchanged (your EN block) ... */
+
+      en: {
         "topbar.tagline":"24/7 • Kosovo • Airport",
         "brand.sub":"Taxi Service",
         "menu.title":"Menu",
@@ -923,7 +924,8 @@
 
         "city.mitrovice":"Mitrovica"
       },
-      de: { /* ... unchanged (your DE block) ... */
+
+      de: {
         "topbar.tagline":"24/7 • Kosovo • Flughafen",
         "brand.sub":"Taxi Service",
         "menu.title":"Menü",
@@ -1054,7 +1056,6 @@
         "city.mitrovice":"Mitrovica"
       },
 
-      /* ✅ NEW: Swedish */
       sv: {
         "topbar.tagline":"24/7 • Kosovo • Flygplats",
         "brand.sub":"Taxi Service",
@@ -1502,16 +1503,19 @@ ${t("wa.review")}: ${msg}`;
 
     // ====== Mobile menu ======
     function openMenu(){
-      document.getElementById("menuOverlay").classList.remove("overlay-hidden");
+      const overlay = document.getElementById("menuOverlay");
+      if(overlay) overlay.classList.remove("overlay-hidden");
       document.body.style.overflow = "hidden";
     }
     function closeMenu(){
-      document.getElementById("menuOverlay").classList.add("overlay-hidden");
+      const overlay = document.getElementById("menuOverlay");
+      if(overlay) overlay.classList.add("overlay-hidden");
       document.body.style.overflow = "";
     }
 
     document.addEventListener("DOMContentLoaded", () => {
-      document.getElementById("year").textContent = new Date().getFullYear();
+      const y = document.getElementById("year");
+      if(y) y.textContent = new Date().getFullYear();
 
       buildStars();
 
