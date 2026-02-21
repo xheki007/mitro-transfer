@@ -27,7 +27,7 @@
     "City taxi",
     "Long distance taxi"
   ],
-  "availableLanguage": ["sq", "en", "de"],
+  "availableLanguage": ["sq", "en", "de", "sv"],
   "openingHoursSpecification": [
     {
       "@type": "OpeningHoursSpecification",
@@ -90,7 +90,7 @@
     }
     .price-card:active{ transform: translateY(0px); }
 
-    /* ✅ FIX: Swiper/hero MUST auto-size to content (booking card can grow) */
+    /* Swiper/hero MUST auto-size to content (booking card can grow) */
     .hero-swiper { height: auto !important; }
     .hero-swiper .swiper-wrapper { height: auto !important; }
     .hero-swiper .swiper-slide { height: auto !important; }
@@ -123,8 +123,34 @@
       min-height: 44px;
     }
 
-    /* ✅ Extra safety so hero never gets "covered" by next section */
+    /* Extra safety so hero never gets "covered" by next section */
     .hero-pad { padding-bottom: 24px; }
+
+    /* ===== HERO BACKGROUND PASSAT (Slide 1) ===== */
+    .hero-bg-passat{
+      position:absolute;
+      inset:0;
+      background-image:url("assets/img/passat-b8-bg.jpg");
+      background-size:cover;
+      background-position:center;
+      z-index:0;
+    }
+    .hero-overlay-dark{
+      position:absolute;
+      inset:0;
+      background:linear-gradient(
+        to right,
+        rgba(0,0,0,.75) 0%,
+        rgba(0,0,0,.55) 40%,
+        rgba(0,0,0,.35) 70%,
+        rgba(0,0,0,.25) 100%
+      );
+      z-index:1;
+    }
+    .hero-content{
+      position:relative;
+      z-index:2;
+    }
   </style>
 </head>
 
@@ -166,11 +192,11 @@
 
       <!-- Right actions -->
       <div class="flex items-center gap-2">
-        <!-- ✅ FIX: language selector visible on mobile too -->
         <select id="langSelect" class="text-sm font-semibold border rounded-lg px-3 py-2 bg-white">
           <option value="sq">Shqip</option>
           <option value="en">English</option>
           <option value="de">Deutsch</option>
+          <option value="sv">Svenska</option>
         </select>
 
         <a href="#book" class="hidden sm:inline-flex px-4 py-2 rounded-lg btn-yellow font-bold shadow-soft" data-i18n="cta.book">Rezervo</a>
@@ -199,13 +225,13 @@
         </button>
       </div>
 
-      <!-- ✅ Also include language selector inside menu (for clarity) -->
       <div class="mt-4">
         <div class="text-xs section-title text-zinc-500 mb-2">Language</div>
         <select id="langSelectMobile" class="w-full text-sm font-semibold border rounded-xl px-3 py-3 bg-white">
           <option value="sq">Shqip</option>
           <option value="en">English</option>
           <option value="de">Deutsch</option>
+          <option value="sv">Svenska</option>
         </select>
       </div>
 
@@ -235,137 +261,143 @@
 
         <!-- Slide 1 -->
         <div class="swiper-slide">
-          <div class="bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-700 text-white">
-            <div class="mx-auto container-max px-4 py-10 lg:py-10 w-full grid lg:grid-cols-2 items-start gap-10">
-              <div class="pt-2">
-                <div class="section-title text-xs text-yellow-300/90" data-i18n="hero1.kicker">Udhëtim i rehatshëm</div>
-                <h1 class="mt-3 text-3xl sm:text-4xl md:text-5xl font-black leading-tight" data-i18n="hero1.title">Rezervo Taxi Online</h1>
+          <div class="relative text-white">
 
-                <h2 class="mt-3 text-lg sm:text-xl font-extrabold text-white/95" data-i18n="hero1.sub">
-                  Taxi Mitrovicë – Transfer Aeroport Prishtinë (24/7)
-                </h2>
+            <!-- PASSAT BACKGROUND -->
+            <div class="hero-bg-passat"></div>
 
-                <p class="mt-4 text-white/80 max-w-xl" data-i18n="hero1.desc">
-                  Shërbim i shpejtë, i sigurt dhe korrekt. Aeroport, qytet, udhëtime të gjata.
-                </p>
+            <!-- DARK OVERLAY -->
+            <div class="hero-overlay-dark"></div>
 
-                <div class="mt-5 flex flex-wrap gap-2">
-                  <span class="pill" data-i18n="hero1.pill1">24/7</span>
-                  <span class="pill" data-i18n="hero1.pill2">Aeroport</span>
-                  <span class="pill" data-i18n="hero1.pill3">Qytetet</span>
-                  <span class="pill" data-i18n="hero1.pill4">Çmime fikse</span>
+            <!-- CONTENT -->
+            <div class="hero-content">
+              <div class="mx-auto container-max px-4 py-10 lg:py-10 w-full grid lg:grid-cols-2 items-start gap-10">
+                <div class="pt-2">
+                  <div class="section-title text-xs text-yellow-300/90" data-i18n="hero1.kicker">Udhëtim i rehatshëm</div>
+                  <h1 class="mt-3 text-3xl sm:text-4xl md:text-5xl font-black leading-tight" data-i18n="hero1.title">Rezervo Taxi Online</h1>
+
+                  <h2 class="mt-3 text-lg sm:text-xl font-extrabold text-white/95" data-i18n="hero1.sub">
+                    Taxi Mitrovicë – Transfer Aeroport Prishtinë (24/7)
+                  </h2>
+
+                  <p class="mt-4 text-white/80 max-w-xl" data-i18n="hero1.desc">
+                    Shërbim i shpejtë, i sigurt dhe korrekt. Aeroport, qytet, udhëtime të gjata.
+                  </p>
+
+                  <div class="mt-5 flex flex-wrap gap-2">
+                    <span class="pill" data-i18n="hero1.pill1">24/7</span>
+                    <span class="pill" data-i18n="hero1.pill2">Aeroport</span>
+                    <span class="pill" data-i18n="hero1.pill3">Qytetet</span>
+                    <span class="pill" data-i18n="hero1.pill4">Çmime fikse</span>
+                  </div>
+
+                  <div class="mt-7 flex flex-wrap gap-3">
+                    <a href="#book" class="px-5 py-3 rounded-xl btn-yellow font-extrabold" data-i18n="cta.book_now">Rezervo tani</a>
+                    <a href="tel:+38343878084" class="px-5 py-3 rounded-xl bg-white/10 border border-white/20 font-bold" data-i18n="cta.call">Thirr</a>
+                  </div>
                 </div>
 
-                <div class="mt-7 flex flex-wrap gap-3">
-                  <a href="#book" class="px-5 py-3 rounded-xl btn-yellow font-extrabold" data-i18n="cta.book_now">Rezervo tani</a>
-                  <a href="tel:+38343878084" class="px-5 py-3 rounded-xl bg-white/10 border border-white/20 font-bold" data-i18n="cta.call">Thirr</a>
+                <!-- Booking card -->
+                <div id="book" class="bg-white text-zinc-900 rounded-2xl p-5 sm:p-6 md:p-8 shadow-soft w-full lg:max-w-xl lg:justify-self-end">
+                  <div class="text-xs section-title text-zinc-500" data-i18n="book.kicker">Rezervim i shpejtë</div>
+                  <div class="text-2xl font-black mt-2" data-i18n="book.title">Dërgo rezervimin në WhatsApp</div>
+
+                  <div class="mt-4 flex flex-wrap gap-2">
+                    <span class="chip" data-i18n="book.chip1">Destinacione fikse</span>
+                    <span class="chip" data-i18n="book.chip2">Çmim automatik</span>
+                    <span class="chip" data-i18n="book.chip3">1 klik dërgimi</span>
+                  </div>
+
+                  <form id="bookingForm" class="mt-5 grid gap-3" onsubmit="return sendBooking(event)">
+                    <div class="grid sm:grid-cols-2 gap-3">
+                      <input class="input rounded-xl px-4 py-3 w-full" required name="fullname"
+                        data-i18n-placeholder="ph.fullname" placeholder="Emri & Mbiemri" autocomplete="name" />
+                      <input class="input rounded-xl px-4 py-3 w-full" required name="phone"
+                        data-i18n-placeholder="ph.phone" placeholder="Telefoni" autocomplete="tel" />
+                    </div>
+
+                    <div class="grid gap-2">
+                      <label for="destinationSelect" class="text-sm font-bold text-zinc-700" data-i18n="book.choose_dest">Zgjedh destinacionin</label>
+                      <select class="input rounded-xl px-4 py-3 w-full" required name="destination" id="destinationSelect">
+                        <option value="" data-i18n="book.choose_dest_opt">Zgjedh destinacionin</option>
+                      </select>
+                    </div>
+
+                    <div class="flex items-center justify-between rounded-xl border bg-zinc-50 px-4 py-3">
+                      <div class="text-sm text-zinc-600" data-i18n="book.price">Çmimi</div>
+                      <div class="text-xl font-black" id="pricePreview">€—</div>
+                    </div>
+
+                    <div class="grid sm:grid-cols-2 gap-3">
+                      <div class="grid gap-2">
+                        <label class="text-sm font-bold text-zinc-700" data-i18n="book.date_label">Data</label>
+                        <input class="input rounded-xl px-4 py-3 w-full" required name="date" type="date" />
+                      </div>
+                      <div class="grid gap-2">
+                        <label class="text-sm font-bold text-zinc-700" data-i18n="book.time_label">Ora</label>
+                        <input class="input rounded-xl px-4 py-3 w-full" required name="time" type="time" />
+                      </div>
+                    </div>
+
+                    <div class="grid gap-2">
+                      <label class="text-sm font-bold text-zinc-700" data-i18n="book.pickup_label">Adresa e marrjes</label>
+                      <input class="input rounded-xl px-4 py-3 w-full" name="pickup_address"
+                            data-i18n-placeholder="ph.pickup_address" placeholder="Rruga, numri, qyteti (opsionale)" />
+                      <div class="flex flex-wrap items-center gap-2">
+                        <button type="button"
+                                class="px-4 py-3 rounded-xl btn-yellow font-extrabold"
+                                onclick="getPickupLocation()"
+                                data-i18n="book.get_location">
+                          Merr lokacionin
+                        </button>
+                        <span id="locStatus" class="loc-badge"></span>
+                      </div>
+                      <input type="hidden" name="pickup_lat" id="pickupLat" />
+                      <input type="hidden" name="pickup_lng" id="pickupLng" />
+                    </div>
+
+                    <input type="hidden" name="class" value="Standard" />
+
+                    <div class="grid gap-3">
+                      <select class="input rounded-xl px-4 py-3 w-full" name="car">
+                        <option selected>VW Passat B8 Blue Caravan</option>
+                      </select>
+                    </div>
+
+                    <div class="flex items-start gap-3 text-sm text-zinc-600">
+                      <input id="bookingConsent" required type="checkbox" class="mt-1 cursor-pointer" />
+                      <label for="bookingConsent" class="cursor-pointer select-none" data-i18n="book.consent">
+                        Pajtohem që të dhënat të përdoren vetëm për rezervim.
+                      </label>
+                    </div>
+
+                    <button type="submit" class="mt-1 px-5 py-3 rounded-xl btn-yellow font-extrabold w-full" data-i18n="cta.send_whatsapp">
+                      Dërgo në WhatsApp
+                    </button>
+
+                    <div class="text-xs text-zinc-500" data-i18n="book.note">
+                      Rezervimi hapet gati në WhatsApp — ti e dërgon me 1 klik.
+                    </div>
+                  </form>
                 </div>
               </div>
 
-              <!-- Booking card -->
-              <div id="book" class="bg-white text-zinc-900 rounded-2xl p-5 sm:p-6 md:p-8 shadow-soft w-full lg:max-w-xl lg:justify-self-end">
-                <div class="text-xs section-title text-zinc-500" data-i18n="book.kicker">Rezervim i shpejtë</div>
-                <div class="text-2xl font-black mt-2" data-i18n="book.title">Dërgo rezervimin në WhatsApp</div>
-
-                <div class="mt-4 flex flex-wrap gap-2">
-                  <span class="chip" data-i18n="book.chip1">Destinacione fikse</span>
-                  <span class="chip" data-i18n="book.chip2">Çmim automatik</span>
-                  <span class="chip" data-i18n="book.chip3">1 klik dërgimi</span>
-                </div>
-
-                <form id="bookingForm" class="mt-5 grid gap-3" onsubmit="return sendBooking(event)">
-                  <div class="grid sm:grid-cols-2 gap-3">
-                    <input class="input rounded-xl px-4 py-3 w-full" required name="fullname"
-                      data-i18n-placeholder="ph.fullname" placeholder="Emri & Mbiemri" autocomplete="name" />
-                    <input class="input rounded-xl px-4 py-3 w-full" required name="phone"
-                      data-i18n-placeholder="ph.phone" placeholder="Telefoni" autocomplete="tel" />
-                  </div>
-
-                  <div class="grid gap-2">
-                    <label for="destinationSelect" class="text-sm font-bold text-zinc-700" data-i18n="book.choose_dest">Zgjedh destinacionin</label>
-                    <select class="input rounded-xl px-4 py-3 w-full" required name="destination" id="destinationSelect">
-                      <option value="" data-i18n="book.choose_dest_opt">Zgjedh destinacionin</option>
-                    </select>
-                  </div>
-
-                  <div class="flex items-center justify-between rounded-xl border bg-zinc-50 px-4 py-3">
-                    <div class="text-sm text-zinc-600" data-i18n="book.price">Çmimi</div>
-                    <div class="text-xl font-black" id="pricePreview">€—</div>
-                  </div>
-
-                  <!-- ✅ FIX: labels for date & time -->
-                  <div class="grid sm:grid-cols-2 gap-3">
-                    <div class="grid gap-2">
-                      <label class="text-sm font-bold text-zinc-700" data-i18n="book.date_label">Data</label>
-                      <input class="input rounded-xl px-4 py-3 w-full" required name="date" type="date" />
-                    </div>
-                    <div class="grid gap-2">
-                      <label class="text-sm font-bold text-zinc-700" data-i18n="book.time_label">Ora</label>
-                      <input class="input rounded-xl px-4 py-3 w-full" required name="time" type="time" />
-                    </div>
-                  </div>
-
-                  <!-- Pickup address + location -->
-                  <div class="grid gap-2">
-                    <label class="text-sm font-bold text-zinc-700" data-i18n="book.pickup_label">Adresa e marrjes</label>
-                    <input class="input rounded-xl px-4 py-3 w-full" name="pickup_address"
-                          data-i18n-placeholder="ph.pickup_address" placeholder="Rruga, numri, qyteti (opsionale)" />
-                    <div class="flex flex-wrap items-center gap-2">
-                      <button type="button"
-                              class="px-4 py-3 rounded-xl btn-yellow font-extrabold"
-                              onclick="getPickupLocation()"
-                              data-i18n="book.get_location">
-                        Merr lokacionin
-                      </button>
-                      <span id="locStatus" class="loc-badge"></span>
-                    </div>
-                    <input type="hidden" name="pickup_lat" id="pickupLat" />
-                    <input type="hidden" name="pickup_lng" id="pickupLng" />
-                  </div>
-
-                  <input type="hidden" name="class" value="Standard" />
-
-                  <div class="grid gap-3">
-                    <select class="input rounded-xl px-4 py-3 w-full" name="car">
-                      <option selected>VW Passat B8 Blue Caravan</option>
-                    </select>
-                  </div>
-
-                  <!-- CONSENT -->
-                  <div class="flex items-start gap-3 text-sm text-zinc-600">
-                    <input id="bookingConsent" required type="checkbox" class="mt-1 cursor-pointer" />
-                    <label for="bookingConsent" class="cursor-pointer select-none" data-i18n="book.consent">
-                      Pajtohem që të dhënat të përdoren vetëm për rezervim.
-                    </label>
-                  </div>
-
-                  <!-- SEND BUTTON -->
-                  <button type="submit" class="mt-1 px-5 py-3 rounded-xl btn-yellow font-extrabold w-full" data-i18n="cta.send_whatsapp">
-                    Dërgo në WhatsApp
-                  </button>
-
-                  <div class="text-xs text-zinc-500" data-i18n="book.note">
-                    Rezervimi hapet gati në WhatsApp — ti e dërgon me 1 klik.
-                  </div>
-                </form>
+              <!-- nav arrows -->
+              <div class="absolute z-20 left-4 right-4 top-1/2 -translate-y-1/2 flex items-center justify-between pointer-events-none">
+                <button class="nav-btn pointer-events-auto swiper-button-prev" aria-label="Para">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                    <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+                <button class="nav-btn pointer-events-auto swiper-button-next" aria-label="Tjetër">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                    <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
               </div>
-            </div>
 
-            <!-- nav arrows -->
-            <div class="absolute z-20 left-4 right-4 top-1/2 -translate-y-1/2 flex items-center justify-between pointer-events-none">
-              <button class="nav-btn pointer-events-auto swiper-button-prev" aria-label="Para">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                  <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </button>
-              <button class="nav-btn pointer-events-auto swiper-button-next" aria-label="Tjetër">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                  <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </button>
+              <div class="swiper-pagination"></div>
             </div>
-
-            <div class="swiper-pagination"></div>
           </div>
         </div>
 
@@ -631,7 +663,7 @@
 
     // ========= i18n =========
     const I18N = {
-      sq: {
+      sq: { /* ... unchanged (your SQ block) ... */ 
         "topbar.tagline":"24/7 • Kosovë • Aeroport",
         "brand.sub":"Taxi Service",
         "menu.title":"Menu",
@@ -761,7 +793,7 @@
 
         "city.mitrovice":"Mitrovicë"
       },
-      en: {
+      en: { /* ... unchanged (your EN block) ... */
         "topbar.tagline":"24/7 • Kosovo • Airport",
         "brand.sub":"Taxi Service",
         "menu.title":"Menu",
@@ -891,7 +923,7 @@
 
         "city.mitrovice":"Mitrovica"
       },
-      de: {
+      de: { /* ... unchanged (your DE block) ... */
         "topbar.tagline":"24/7 • Kosovo • Flughafen",
         "brand.sub":"Taxi Service",
         "menu.title":"Menü",
@@ -1020,14 +1052,147 @@
         "wa.review":"Bewertung",
 
         "city.mitrovice":"Mitrovica"
+      },
+
+      /* ✅ NEW: Swedish */
+      sv: {
+        "topbar.tagline":"24/7 • Kosovo • Flygplats",
+        "brand.sub":"Taxi Service",
+        "menu.title":"Meny",
+        "menu.quick_contact":"Snabbkontakt",
+        "menu.call":"Ring",
+
+        "nav.home":"Home",
+        "nav.services":"Tjänster",
+        "nav.pricing":"Priser",
+        "nav.reviews":"Omdömen",
+        "nav.contact":"Kontakt",
+
+        "cta.book":"Boka",
+        "cta.book_now":"Boka nu",
+        "cta.call":"Ring",
+        "cta.contact":"Kontakt",
+        "cta.view_services":"Se tjänster",
+        "cta.send_whatsapp":"Skicka till WhatsApp",
+
+        "hero1.kicker":"Bekväm resa",
+        "hero1.title":"Boka taxi online",
+        "hero1.sub":"Taxi Mitrovica – Transfer till Pristina flygplats (24/7)",
+        "hero1.desc":"Snabb, säker och pålitlig service. Flygplats, stadskörningar och långresor.",
+        "hero1.pill1":"24/7",
+        "hero1.pill2":"Flygplats",
+        "hero1.pill3":"Städer",
+        "hero1.pill4":"Fasta priser",
+
+        "book.kicker":"Snabb bokning",
+        "book.title":"Skicka bokningen på WhatsApp",
+        "book.chip1":"Fasta destinationer",
+        "book.chip2":"Automatiskt pris",
+        "book.chip3":"1-klick skick",
+        "book.choose_dest":"Välj destination",
+        "book.choose_dest_opt":"Välj destination",
+        "book.price":"Pris",
+        "book.date_label":"Datum",
+        "book.time_label":"Tid",
+        "book.pickup_label":"Upphämtningsadress",
+        "book.get_location":"Hämta plats",
+        "book.loc_ok":"Plats hämtad ✔",
+        "book.loc_wait":"Hämtar plats…",
+        "book.loc_denied":"Tillåt plats i webbläsaren (Allow) så kan vi skicka den.",
+        "book.loc_unavailable":"Plats är inte tillgänglig på den här enheten.",
+        "book.loc_error":"Kunde inte hämta plats. Försök igen.",
+        "book.consent":"Jag godkänner att uppgifterna används endast för bokning.",
+        "book.note":"Bokningen öppnas färdig i WhatsApp — du skickar med 1 klick.",
+
+        "hero2.kicker":"Säkerhet & pålitlighet",
+        "hero2.title":"Taxi Service 24/7",
+        "hero2.desc":"Licensierad förare, ren bil, tydligt pris.",
+        "hero2.info":"Info",
+        "hero2.li1":"• Tillgänglig 24/7",
+        "hero2.li2":"• Flygplatstransfer",
+        "hero2.li3":"• Resor i hela Kosovo",
+        "hero2.li4":"• Kontant betalning / överenskommelse",
+
+        "services.kicker":"Vad vi erbjuder",
+        "services.title":"Professionella tjänster",
+        "services.desc":"Pålitlig, ren och punktlig transport. Enkel bokning via WhatsApp.",
+        "services.c1.t":"Upphämtning på adress",
+        "services.c1.d":"I tid, 24/7.",
+        "services.c2.t":"Flygplatstransfer",
+        "services.c2.d":"Snabbt, säkert och korrekt.",
+        "services.c3.t":"Långresor",
+        "services.c3.d":"I hela Kosovo.",
+        "services.c4.t":"Snabb bokning",
+        "services.c4.d":"1 klick på WhatsApp.",
+
+        "pricing.kicker":"Destinationer",
+        "pricing.title":"Fasta priser från Mitrovica",
+        "pricing.desc":"Klicka på en destination — formuläret fylls i automatiskt, skriv bara namn och telefon.",
+        "pricing.note":"*För frågor eller specialönskemål — skriv till oss på WhatsApp.",
+        "pricing.route":"{from} → {to}",
+        "pricing.click":"Klicka för att boka",
+
+        "reviews.kicker":"Kunder om oss",
+        "reviews.title":"Omdömen",
+        "reviews.r1":"Väldigt professionell, ren bil och kom i tid.",
+        "reviews.r2":"Stressfri flygplatstransfer. Rekommenderas.",
+        "reviews.r3":"Tydligt pris, snabb kommunikation.",
+        "reviews.client":"Kund",
+
+        "reviews.google_btn":"Lämna ett Google-omdöme",
+        "reviews.facebook_btn":"Lämna ett Facebook-omdöme",
+        "reviews.whatsapp_btn":"Skicka omdöme via WhatsApp",
+        "reviews.form_title":"Skicka omdöme (WhatsApp)",
+        "reviews.form_desc":"Välj stjärnor och skriv ditt omdöme — öppnas färdigt i WhatsApp.",
+        "reviews.stars_label":"Stjärnbetyg",
+        "reviews.consent":"Jag godkänner att omdömet kan publiceras (efter kontroll).",
+        "reviews.send_btn":"Skicka omdöme till WhatsApp",
+        "reviews.stars_text":"Du valde {n} / 5 stjärnor",
+
+        "contact.kicker":"Kontakt",
+        "contact.title":"Kontakta oss snabbt",
+        "contact.desc":"För frågor, specialönskemål eller mer info — skriv eller ring.",
+        "contact.loc_k":"Plats",
+        "contact.loc_v":"Mitrovica / Kosovo",
+        "contact.phone_k":"Telefon",
+        "contact.chat":"Chatta",
+        "contact.form_title":"Skicka ett meddelande",
+        "contact.consent":"Jag godkänner att uppgifterna används endast för kontakt.",
+
+        "footer.tagline":"Pålitlig taxi • 24/7 • Flygplats • Städer",
+
+        "ph.fullname":"För- och efternamn",
+        "ph.phone":"Telefon",
+        "ph.message":"Meddelande",
+        "ph.review":"Skriv ditt omdöme...",
+        "ph.pickup_address":"Gata, nummer, stad (valfritt)",
+
+        "wa.booking_title":"🚕 Bokning - Mitro Transfer",
+        "wa.msg_title":"💬 Meddelande - Mitro Transfer",
+        "wa.review_title":"⭐ Omdöme - Mitro Transfer",
+        "wa.name":"Namn",
+        "wa.tel":"Telefon",
+        "wa.pickup_address":"Adress",
+        "wa.location":"Plats",
+        "wa.destination":"Destination",
+        "wa.price":"Pris",
+        "wa.date":"Datum",
+        "wa.class":"Klass",
+        "wa.car":"Bil",
+        "wa.message":"Meddelande",
+        "wa.stars":"Stjärnor",
+        "wa.review":"Omdöme",
+
+        "city.mitrovice":"Mitrovica"
       }
     };
 
     function detectDefaultLang(){
       const saved = localStorage.getItem("lang");
-      if(saved && (saved === "sq" || saved === "en" || saved === "de")) return saved;
+      if(saved && (saved === "sq" || saved === "en" || saved === "de" || saved === "sv")) return saved;
       const nav = (navigator.language || "").toLowerCase();
       if(nav.startsWith("de")) return "de";
+      if(nav.startsWith("sv")) return "sv";
       if(nav.startsWith("en")) return "en";
       return "sq";
     }
@@ -1040,21 +1205,21 @@
     }
 
     const DESTINATIONS = [
-      { key:"prishtine",  name:{sq:"Prishtinë", en:"Pristina", de:"Pristina"}, price:35 },
-      { key:"aeroport",   name:{sq:"Aeroport (Prishtinë)", en:"Airport (Pristina)", de:"Flughafen (Pristina)"}, price:45 },
-      { key:"ferizaj",    name:{sq:"Ferizaj", en:"Ferizaj", de:"Ferizaj"}, price:50 },
-      { key:"gjilan",     name:{sq:"Gjilan", en:"Gjilan", de:"Gjilan"}, price:60 },
-      { key:"podujeve",   name:{sq:"Podujevë", en:"Podujevo", de:"Podujevo"}, price:40 },
-      { key:"peje",       name:{sq:"Pejë", en:"Peja", de:"Peja"}, price:60 },
-      { key:"gjakove",    name:{sq:"Gjakovë", en:"Gjakova", de:"Gjakova"}, price:70 },
-      { key:"prizren",    name:{sq:"Prizren", en:"Prizren", de:"Prizren"}, price:70 },
-      { key:"rahovec",    name:{sq:"Rahovec", en:"Rahovec", de:"Rahovec"}, price:75 },
-      { key:"vushtrri",   name:{sq:"Vushtrri", en:"Vushtrri", de:"Vushtrri"}, price:12 },
-      { key:"skenderaj",  name:{sq:"Skenderaj", en:"Skenderaj", de:"Skenderaj"}, price:15 },
-      { key:"drenas",     name:{sq:"Drenas", en:"Drenas", de:"Drenas"}, price:35 },
-      { key:"lipjan",     name:{sq:"Lipjan", en:"Lipjan", de:"Lipjan"}, price:45 },
-      { key:"fushkosove", name:{sq:"Fushë Kosovë", en:"Fushe Kosovo", de:"Fushë Kosovo"}, price:35 },
-      { key:"obiliq",     name:{sq:"Obiliq", en:"Obiliq", de:"Obiliq"}, price:35 }
+      { key:"prishtine",  name:{sq:"Prishtinë", en:"Pristina", de:"Pristina", sv:"Pristina"}, price:35 },
+      { key:"aeroport",   name:{sq:"Aeroport (Prishtinë)", en:"Airport (Pristina)", de:"Flughafen (Pristina)", sv:"Flygplats (Pristina)"}, price:45 },
+      { key:"ferizaj",    name:{sq:"Ferizaj", en:"Ferizaj", de:"Ferizaj", sv:"Ferizaj"}, price:50 },
+      { key:"gjilan",     name:{sq:"Gjilan", en:"Gjilan", de:"Gjilan", sv:"Gjilan"}, price:60 },
+      { key:"podujeve",   name:{sq:"Podujevë", en:"Podujevo", de:"Podujevo", sv:"Podujevo"}, price:40 },
+      { key:"peje",       name:{sq:"Pejë", en:"Peja", de:"Peja", sv:"Peja"}, price:60 },
+      { key:"gjakove",    name:{sq:"Gjakovë", en:"Gjakova", de:"Gjakova", sv:"Gjakova"}, price:70 },
+      { key:"prizren",    name:{sq:"Prizren", en:"Prizren", de:"Prizren", sv:"Prizren"}, price:70 },
+      { key:"rahovec",    name:{sq:"Rahovec", en:"Rahovec", de:"Rahovec", sv:"Rahovec"}, price:75 },
+      { key:"vushtrri",   name:{sq:"Vushtrri", en:"Vushtrri", de:"Vushtrri", sv:"Vushtrri"}, price:12 },
+      { key:"skenderaj",  name:{sq:"Skenderaj", en:"Skenderaj", de:"Skenderaj", sv:"Skenderaj"}, price:15 },
+      { key:"drenas",     name:{sq:"Drenas", en:"Drenas", de:"Drenas", sv:"Drenas"}, price:35 },
+      { key:"lipjan",     name:{sq:"Lipjan", en:"Lipjan", de:"Lipjan", sv:"Lipjan"}, price:45 },
+      { key:"fushkosove", name:{sq:"Fushë Kosovë", en:"Fushe Kosovo", de:"Fushë Kosovo", sv:"Fushe Kosovo"}, price:35 },
+      { key:"obiliq",     name:{sq:"Obiliq", en:"Obiliq", de:"Obiliq", sv:"Obiliq"}, price:35 }
     ];
 
     function destName(d){
@@ -1097,12 +1262,11 @@
     }
 
     function setLang(lang){
-      if(!(lang === "sq" || lang === "en" || lang === "de")) return;
+      if(!(lang === "sq" || lang === "en" || lang === "de" || lang === "sv")) return;
       currentLang = lang;
       localStorage.setItem("lang", lang);
       applyLang();
 
-      // ✅ keep both selectors in sync
       const a = document.getElementById("langSelect");
       const b = document.getElementById("langSelectMobile");
       if(a) a.value = lang;
@@ -1351,7 +1515,6 @@ ${t("wa.review")}: ${msg}`;
 
       buildStars();
 
-      // init language selects
       const langSelect = document.getElementById("langSelect");
       const langSelectMobile = document.getElementById("langSelectMobile");
       if(langSelect){
@@ -1365,7 +1528,7 @@ ${t("wa.review")}: ${msg}`;
 
       applyLang();
 
-      // ✅ FIX: autoHeight so slide grows with booking card (no clipping)
+      // No animations / no autoplay
       const swiper = new Swiper('.hero-swiper', {
         loop: true,
         autoplay: false,
@@ -1378,13 +1541,11 @@ ${t("wa.review")}: ${msg}`;
         preventClicksPropagation: false,
         on: {
           slideChangeTransitionEnd: function () {
-            // force recalc height after transitions
             this.updateAutoHeight(250);
           }
         }
       });
 
-      // update height when destination changes too (form height can change)
       const sel = document.getElementById("destinationSelect");
       if(sel) sel.addEventListener("change", () => {
         updatePricePreview();
